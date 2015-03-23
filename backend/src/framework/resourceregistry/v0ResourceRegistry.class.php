@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * @author Rahul Lahoria
+	 * @author rajnish
 	 */
 
 	require_once 'ResourceRegistry.interface.php';
@@ -14,14 +14,9 @@
 
             switch($resourceType) {
 
-            	case '/posts': 
-            		require_once 'resources/PostsResource.class.php';
-            		$this -> resource = new PostsResource();
-                break;
-
-                case '/posts-to-share': 
-                    require_once 'resources/PostsToShareResource.class.php';
-                    $this -> resource = new PostsToShareResource();
+                case '/auth': 
+                    require_once 'resources/UserResource.class.php';
+                    $this -> resource = new UserResource();
                 break;
 
             	default:
