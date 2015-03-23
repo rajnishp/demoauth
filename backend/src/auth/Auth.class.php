@@ -1,14 +1,15 @@
 <?php
-require_once '../utils/predis/autoload.php';
+require_once 'utils/predis/autoload.php';
 require_once 'AuthDAOFactory.class.php';
 class Auth {
 
 	private $redis;
+	private $AuthDAOFactory;
 
 	public function __construct() {
 
-		global $configs;
-		$configs = json_decode (file_get_contents('../nucleus-configs.json'), true);
+		global $configs, $logger;
+		$configs = json_decode (file_get_contents('collap-configs.json'), true);
 		try {
                 $logger -> debug ("Creating REDIS cache object");
                 Predis\Autoloader::register();
@@ -18,19 +19,33 @@ class Auth {
                 $logger -> warn ("Redis cache object could not be created");
                 $this -> redis = null;
             }
+
+           $this -> AuthDAOFactory = new AuthDAOFactory();
 		
 		
     }
 
 	public function getAuth($username, $password, $project ){
-	
-		$userDAO = get.$project.UserDAO();
+		global $configs, $logger;
+
+		$daoFun = "get".$project."UserDAO";
+		
+		$userDAO = $this -> AuthDAOFactory -> $daoFun();
 		
 		$user = $userDAO -> queryByUsername ($username);
-
-		if (isset( $user )){
+		//var_dump($user);exit;
+		//$logger -> debug ("userKey" . json_encode(   ) );
+            
+		if (isset( $user ) && $password == $user -> getPassword() ){
 			$userKey = $this -> generateRandomString();
+			$logger -> debug ("userKey" . $userKey);
+			
+			if ($this -> redis -> EXISTS($user -> getId() ) )
+				return  $this -> redis->GET( $user -> getId() ); 
+            
+            $this -> redis->SET($user -> getId(), $userKey);    
 			$this -> redis->SET($userKey, $user -> getId());
+			
 			return $userKey;	
 		}
 		else 
@@ -43,7 +58,7 @@ class Auth {
 		
 	}
 
-	public function generateRandomString($length = 10) {
+	public function generateRandomString($length = 20) {
     		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     		$charactersLength = strlen($characters);
     		$randomString = '';

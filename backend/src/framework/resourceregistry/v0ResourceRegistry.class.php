@@ -15,8 +15,8 @@
             switch($resourceType) {
 
                 case '/auth': 
-                    require_once 'resources/UserResource.class.php';
-                    $this -> resource = new UserResource();
+                    require_once 'resources/AuthResource.class.php';
+                    $this -> resource = new AuthResource();
                 break;
 
             	default:

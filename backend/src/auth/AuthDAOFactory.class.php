@@ -26,7 +26,7 @@ class AuthDAOFactory{
 	 */
 	public static function getMobacUserDAO(){
 		
-		require_once('devmobac/mobac/backend/src/dao/DAOFactory.class.php');
+		require_once('dao/DAOFactory.class.php');
 		$DAOFactory = new DAOFactory();
 		 
 		return $DAOFactory -> getUserInfoDAO();
