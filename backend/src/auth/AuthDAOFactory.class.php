@@ -11,7 +11,7 @@
 class AuthDAOFactory{
 
 	/**
-	 * @return CustomerDAO
+	 * @return CollapUserDAO
 	 */
 	public static function getCollapUserDAO(){
 
@@ -22,7 +22,7 @@ class AuthDAOFactory{
 	}
 	
 	/**
-	 * @return ChannelsDAO
+	 * @return MobacUserDAO
 	 */
 	public static function getMobacUserDAO(){
 		

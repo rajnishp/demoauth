@@ -52,7 +52,7 @@ class Auth {
 			return null;
 	}
 
-	public function getUserId($userKey){
+	public function getUserId ($userKey){
 	
 		return $this -> redis->GET($userKey);
 		
