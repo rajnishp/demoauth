@@ -36,6 +36,8 @@ class AuthResource implements Resource {
     public function post ($resourceVals, $data) {
         global $logger, $warnings_payload;
         // $userId is set temporally, update it
+
+        $logger -> debug ( json_encode($resourceVals) . " " . json_encode($data));
         $userKey = $this -> auth -> getAuth($data["username"], $data["password"], $data["project"] );
 
 

@@ -30,12 +30,14 @@ class Auth {
 
 		$daoFun = "get".$project."UserDAO";
 		
+		$logger -> debug ("getAuth $username $project :: Creating DAO object by " . $daoFun  );
 		$userDAO = $this -> AuthDAOFactory -> $daoFun();
 		
 		$user = $userDAO -> queryByUsername ($username);
 		//var_dump($user);exit;
-		//$logger -> debug ("userKey" . json_encode(   ) );
+		$logger -> debug ("getAuth $username $project"  );
             
+
 		if (isset( $user ) && $password == $user -> getPassword() ){
 			$userKey = $this -> generateRandomString();
 			$logger -> debug ("userKey" . $userKey);

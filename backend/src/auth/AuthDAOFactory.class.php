@@ -15,9 +15,16 @@ class AuthDAOFactory{
 	 */
 	public static function getCollapUserDAO(){
 
-		require_once('teamroom/backend/src/dao/DAOFactory.class.php');
+		global $logger;
+
+		set_include_path(get_include_path() . PATH_SEPARATOR . "/var/www/html/teamroom/todelete/chat_box/chat/css/collapV3/backend/src/"  );
+		$logger -> debug ( "seting include path as /var/www/html/teamroom/todelete/chat_box/chat/css/collapV3/backend/src/" );
+		
+		require_once('dao/DAOFactory.class.php');
+
 		$DAOFactory = new DAOFactory();
-		 
+		$logger -> debug ("Dao object created succesfully");
+		
 		return $DAOFactory -> getUserInfoDAO();
 	}
 	
@@ -25,8 +32,8 @@ class AuthDAOFactory{
 	 * @return MobacUserDAO
 	 */
 	public static function getMobacUserDAO(){
-		
-		require_once('dao/DAOFactory.class.php');
+		set_include_path(get_include_path() . PATH_SEPARATOR . "/var/www/html/devmobac/mobac/backend/src/");
+		require_once('devmobac/mobac/backend/src/dao/DAOFactory.class.php');
 		$DAOFactory = new DAOFactory();
 		 
 		return $DAOFactory -> getUserInfoDAO();

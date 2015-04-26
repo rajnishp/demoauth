@@ -1,7 +1,7 @@
 	<?php
     
 	/**
-	 * @author Jessy James
+	 * @author Rahul Lahoria
 	 */
     
     require_once 'ResourceRegistryFactory.class.php';
